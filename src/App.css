@@ -1,0 +1,183 @@
+
+.container{
+  height: 100vh;
+  width: 100%;
+  background-color: #161616;
+  color: white;
+  padding: 30px;
+  display: flex;
+  place-items: center;
+}
+
+.form
+{
+ /* background-color: red; */
+ width:100% ;
+ display: flex;
+ flex-direction: column;
+row-gap: 10px;
+align-items: flex-start;
+
+}
+
+.inp
+{
+  width: 100%;
+  height:40px;
+  border-radius: 5px;
+  text-indent: 10px;
+  outline: none;
+  border: 1px solid gray;
+ 
+}
+
+.btn
+{
+  padding: 10px 50px;
+  border-radius: 5px;
+  background-color: #2b2bd9;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 1px solid blue ;
+  cursor: pointer;
+}
+
+.btn:hover
+{
+  background-color: #4b4bbd;
+}
+
+a{
+  color: #4b4bbd;
+  text-decoration: none;
+}
+ 
+.not-found
+{
+  width: 100%;
+  text-align: center;
+}
+
+.success
+{
+  background-color: lightgreen;
+  color: green;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  text-indent: 10px;
+  opacity: 1;
+}
+.error
+{
+  background-color: lightpink;
+  color: red;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  text-indent: 10px;
+  opacity: 1;
+}
+.invisible-msg
+{
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  text-indent: 10px;
+  opacity: 0;
+}
+
+
+/* track page css */
+
+.search{
+  width: 100%;
+  padding: 10px 0px;
+  position: relative;
+  /* background-color: gray; */
+}
+
+.track-container{
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.search-inp
+{
+  width: 100%;
+  height: 45px;
+  text-indent:10px ;
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 15px;
+
+}
+
+.search-results
+{
+  width:100% ;
+  padding: 10px 5px;
+  background-color: gray;
+  border-radius: 5px;
+  margin-top: 10px;
+  position:absolute;
+}
+
+.food{
+  width: 100%;
+  padding: 10px 10px;
+  /* background-color: gray; */
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px ;
+}
+
+.food-img{
+  width: 100%;
+  height: 150px;
+  background-color: red;
+  
+}
+
+.nutrient{
+  width: 50%;
+  padding: 10px 0px;
+  /* background-color: green; */
+}
+
+.food-image{
+  width: 100%;
+  height: 100%;
+}
+
+.track-control
+{
+  display: flex;
+  column-gap: 2%;
+}
+
+.track-control > .inp
+{
+  width: 68%;
+}
+
+.track-control > .btn
+{
+  width: 30%;
+  padding: 10px 0px;
+}
+
+.diet-container
+{
+  align-items: flex-start;
+  row-gap: 20px;
+  flex-direction: column;
+}
+.item
+{
+  width: 100%;
+  padding: 20px;
+  background-color: rgb(55, 54, 54);
+}
