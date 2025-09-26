@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+const BASE_URL = 'https://api-backend-ool6.onrender.com';
 import { Usercontext } from "../contexts/Usercontext";
 
 
@@ -61,7 +62,7 @@ export default function Food(props)
         console.log(trackedItem);
       
 
-       fetch("http://localhost:8000/track",{
+  fetch(`${BASE_URL}/track`,{
          method:"POST",
          body:JSON.stringify(trackedItem),
          headers:{

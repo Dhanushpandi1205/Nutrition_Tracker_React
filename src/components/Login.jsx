@@ -1,4 +1,5 @@
 import { useState,useContext } from "react"
+const BASE_URL = 'https://api-backend-ool6.onrender.com';
 import { Link , useNavigate } from "react-router-dom"
 import { Usercontext } from "../contexts/Usercontext";
 
@@ -35,7 +36,7 @@ export default function Login(){
     event.preventDefault();
     
 
-    fetch("http://localhost:8000/login",{
+  fetch(`${BASE_URL}/login`,{
      method:"POST",
      body:JSON.stringify(userCred),
      headers:{

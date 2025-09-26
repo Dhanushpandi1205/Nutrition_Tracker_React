@@ -1,4 +1,5 @@
 import { Usercontext } from "../contexts/Usercontext";
+const BASE_URL = 'https://api-backend-ool6.onrender.com';
 import { useContext, useEffect, useState } from "react";
 import Food from "./Food";
 import Header from "./Header"
@@ -17,7 +18,7 @@ export default function Track() {
 
   function searchFood(event) {
     if (event.target.value !== "") {
-      fetch(`http://localhost:8000/foods/${event.target.value}`, {
+  fetch(`${BASE_URL}/foods/${event.target.value}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${loggedData.loggedUser.token}`,

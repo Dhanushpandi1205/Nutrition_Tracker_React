@@ -1,4 +1,5 @@
 import {useContext, useState } from "react"
+const BASE_URL = 'https://api-backend-ool6.onrender.com';
 import { Link } from "react-router-dom"
 
 
@@ -30,37 +31,30 @@ export default function Register(){
 
   function  handleSubmit(event){
     event.preventDefault();
-   console.log(userDetails);
-
-  fetch("http://localhost:8000/register",{
-    method:"POST",
-    body:JSON.stringify(userDetails),
-    headers:{
-       "Content-Type":"application/json"
-    }
-  })
-  .then((res)=>res.json())
-  .then((data)=>{
-    setMsg({type:"success",text:data.message})
-    
-    setUserDetails({
-        name:"",
-        email:"",
-        password:"",
-        age:""
+    console.log(userDetails);
+    fetch(`${BASE_URL}/register`,{
+      method:"POST",
+      body:JSON.stringify(userDetails),
+      headers:{
+         "Content-Type":"application/json"
+      }
     })
-
-    setTimeout(()=>{
-        setMsg({type:"invisible-msg",text:"Dummy sg"})
-    },5000)
-
-
-  })
-.catch((err)=>
-{
-    console.log(err);
-})
-
+    .then((res)=>res.json())
+    .then((data)=>{
+      setMsg({type:"success",text:data.message})
+      setUserDetails({
+          name:"",
+          email:"",
+          password:"",
+          age:""
+      })
+      setTimeout(()=>{
+          setMsg({type:"invisible-msg",text:"Dummy sg"})
+      },5000)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   }
 
 

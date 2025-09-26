@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+const BASE_URL = 'https://api-backend-ool6.onrender.com';
 import { Usercontext } from "../contexts/Usercontext";
 import Header from "./Header"
 
@@ -18,7 +19,7 @@ export default function Diet() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:8000/track/${loggedData.loggedUser.userid}/${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`,
+      `${BASE_URL}/track/${loggedData.loggedUser.userid}/${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`,
       {
         method: "GET",
         headers: {
