@@ -48,42 +48,48 @@ export default function Track() {
   }
 
   return (
-    <section className="container track-container">
-     
-        <Header></Header>
-      <div className="search">
-        <input
-          className="search-inp"
-          onChange={searchFood}
-          type="search"
-          placeholder="Search Food Items"
-        />
+    <section className="track-container">
+      <Header />
+      
+      <div className="content-wrapper">
+        <div className="track-header">
+          <h1>Track Your Food</h1>
+          <p>Search and add food items to your daily tracker</p>
+        </div>
 
-        {foodItems.length !== 0 ? (
-          <div className="search-results">
-            {foodItems.map((item) => {
-              return (
-                <p className="item"  onClick={()=>{
-                 setFood(item);
-                }}key={item._id}>
-                  {item.name}
-                </p>
-              );
-            })}
+        <div className="search-container">
+          <div className="search">
+            <i className="fas fa-search search-icon"></i>
+            <input
+              className="search-input"
+              onChange={searchFood}
+              type="search"
+              placeholder="Search food items..."
+            />
           </div>
-        ) : null}
+
+          {foodItems.length !== 0 && (
+            <div className="search-results">
+              {foodItems.map((item) => (
+                <div
+                  className="search-result-item"
+                  onClick={() => setFood(item)}
+                  key={item._id}
+                >
+                  <i className="fas fa-utensils"></i>
+                  <div className="item-info">
+                    <h4>{item.name}</h4>
+                    <p>{item.calories} Kcal per 100g</p>
+                  </div>
+                  <i className="fas fa-plus-circle add-icon"></i>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {food !== null && <Food food={food} />}
       </div>
-  
-  
-      {
-        food !==null?(
-       <Food food = {food}/>
-        ):null
-      }
-     
-    
-
-
     </section>
   );
 }

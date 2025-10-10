@@ -1,19 +1,37 @@
 import { Navigate } from "react-router-dom";
 import { Usercontext } from "../contexts/Usercontext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
+export default function Private({ Component }) {
+  const { loggedUser, isLoading, error } = useContext(Usercontext);
 
-export default function Private({Component})
-{
-  const LoggedData = useContext(Usercontext);
+  useEffect(() => {
+    // Validate token on component mount
+    if (loggedUser?.token) {
+      // You could add token validation logic here if needed
+      console.log("Token present:", loggedUser.token);
+    }
+  }, [loggedUser]);
 
-  console.log(LoggedData);
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
-  return(
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>{error}</p>
+        <button onClick={() => window.location.href = '/login'}>
+          Return to Login
+        </button>
+      </div>
+    );
+  }
 
-    LoggedData.loggedUser!==null?
-    <Component/>
-    :
-    <Navigate to="/login"/>
-  )
+  return loggedUser ? <Component /> : <Navigate to="/login" replace />
 }
