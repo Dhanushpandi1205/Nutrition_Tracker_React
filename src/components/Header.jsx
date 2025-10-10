@@ -2,6 +2,8 @@ import { Usercontext } from "../contexts/Usercontext";
 import { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 
+const BASE_URL = "https://api-backend-ool6.onrender.com";
+
 export default function Header() {
     const loggedData = useContext(Usercontext);
     const navigate = useNavigate();
@@ -9,6 +11,55 @@ export default function Header() {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const profileRef = useRef(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    
+    // Fetch user details when component mounts
+    useEffect(() => {
+        console.log('Current logged user data:', loggedData.loggedUser);
+        async function fetchUserDetails() {
+            if (loggedData.loggedUser?.userid || loggedData.loggedUser?._id) {
+                try {
+                    const userId = loggedData.loggedUser.userid || loggedData.loggedUser._id;
+                    console.log('Fetching user details for ID:', userId);
+                    
+                    const response = await fetch(`${BASE_URL}/users/${userId}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${loggedData.loggedUser.token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    console.log('Response status:', response.status);
+                    const userData = await response.json();
+                    console.log('Fetched user data:', userData);
+                    
+                    if (response.ok && userData) {
+                        // Update the user data in context and localStorage
+                        const updatedUserData = {
+                            ...loggedData.loggedUser,
+                            name: userData.name || userData.username,
+                            email: userData.email,
+                            age: userData.age
+                        };
+                        console.log('Updating with:', updatedUserData);
+                        localStorage.setItem('nutrify-user', JSON.stringify(updatedUserData));
+                        loggedData.setLoggedUser(updatedUserData);
+                    } else {
+                        console.error('Failed to fetch user details:', userData);
+                    }
+                } catch (error) {
+                    console.error('Error fetching user details:', error);
+                }
+            } else {
+                console.log('No user ID found in logged data:', loggedData.loggedUser);
+            }
+        }
+
+        if (loggedData.loggedUser?.token) {
+            console.log('Starting user details fetch...');
+            fetchUserDetails();
+        }
+    }, [loggedData.loggedUser?.userid, loggedData.loggedUser?._id]);
 
     function logout() {
         localStorage.removeItem("nutrify-user");
