@@ -4,10 +4,15 @@
   background-color: var(--background-color);
   background-image: linear-gradient(135deg, #161616 0%, #1a1a2e 100%);
   color: white;
-  padding: 2rem;
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .auth-form {
