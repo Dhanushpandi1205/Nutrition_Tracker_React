@@ -9,16 +9,21 @@ export default function Track() {
   const loggedData = useContext(Usercontext);
 
   const [foodItems, setFoodItems] = useState([]);
-
-  const [food,setFood]= useState(null);
+  const [food, setFood] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [isListOpen, setIsListOpen] = useState(false);
   
-  useEffect(()=>{
-    console.log(food)
-  })
+  useEffect(() => {
+    console.log(food);
+  });
 
   function searchFood(event) {
-    if (event.target.value !== "") {
-  fetch(`${BASE_URL}/foods/${event.target.value}`, {
+    const value = event.target.value;
+    setSearchValue(value);
+    
+    if (value !== "") {
+      setIsListOpen(true);
+      fetch(`${BASE_URL}/foods/${value}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${loggedData.loggedUser.token}`,
@@ -26,25 +31,26 @@ export default function Track() {
       })
         .then((res) => res.json())
         .then((data) => {
-          
-         if(data.message === undefined)
-            {
-              setFoodItems(data);
-            }
-            else{
-              setFoodItems([]);
-            }
+          if (data.message === undefined) {
+            setFoodItems(data);
+          } else {
+            setFoodItems([]);
+          }
         })
-
         .catch((err) => {
           console.log(err);
         });
-
-    } 
-    else
-    {
+    } else {
       setFoodItems([]);
+      setIsListOpen(false);
     }
+  }
+
+  function handleFoodSelect(item) {
+    setFood(item);
+    setFoodItems([]); // Clear search results
+    setSearchValue(""); // Clear search input
+    setIsListOpen(false); // Close the list
   }
 
   return (
@@ -63,17 +69,18 @@ export default function Track() {
             <input
               className="search-input"
               onChange={searchFood}
+              value={searchValue}
               type="search"
               placeholder="Search food items..."
             />
           </div>
 
-          {foodItems.length !== 0 && (
+          {isListOpen && foodItems.length !== 0 && (
             <div className="search-results">
               {foodItems.map((item) => (
                 <div
                   className="search-result-item"
-                  onClick={() => setFood(item)}
+                  onClick={() => handleFoodSelect(item)}
                   key={item._id}
                 >
                   <i className="fas fa-utensils"></i>
